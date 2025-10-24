@@ -6,7 +6,14 @@ module.exports = {
     './components/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#8A1414",
+        primaryHover: "#A71A1A",
+        accent: "#B62424",
+        softBg: "#F9ECEC",
+      },
+    },
   },
   plugins: [
     // Optional plugin; keep require in try/catch to avoid runtime crash if package is missing during dev
