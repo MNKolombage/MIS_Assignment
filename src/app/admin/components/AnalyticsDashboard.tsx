@@ -37,7 +37,7 @@ export default function AnalyticsDashboard() {
       {/* Metrics Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {metrics.map((metric, idx) => (
-          <div key={idx} className="bg-white shadow-md rounded-xl p-6 flex flex-col items-center transition-transform hover:scale-105">
+          <div key={idx} className="bg-[#FFFBF2] shadow-md rounded-xl p-6 flex flex-col items-center transition-transform hover:scale-105">
             {metric.icon}
             <h3 className="text-lg font-medium text-gray-700 mt-2">{metric.title}</h3>
             <p className="text-3xl font-bold text-primary mt-1">{metric.value}</p>
@@ -48,7 +48,7 @@ export default function AnalyticsDashboard() {
       {/* Charts Section */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Bar Chart */}
-        <div className="bg-white shadow-md rounded-xl p-6 h-80">
+        <div className="bg-[#FFFBF2] shadow-md rounded-xl p-6 h-80">
           <h3 className="text-xl font-semibold text-gray-700 mb-4">Monthly Bookings & Revenue</h3>
           <ResponsiveContainer width="100%" height="100%">
             <BarChart data={barData}>
@@ -64,7 +64,7 @@ export default function AnalyticsDashboard() {
         </div>
 
         {/* Pie Chart */}
-        <div className="bg-white shadow-md rounded-xl p-6 h-80 flex flex-col">
+        <div className="bg-[#FFFBF2] shadow-md rounded-xl p-6 h-80 flex flex-col">
           <h3 className="text-xl font-semibold text-gray-700 mb-4">Room Booking Distribution</h3>
           <ResponsiveContainer width="100%" height="100%">
             <PieChart>
