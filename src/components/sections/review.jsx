@@ -152,7 +152,10 @@ export default function Review() {
   };
 
   return (
-    <section className="w-full py-14 bg-white font-['Inter']">
+    <section 
+      className="w-full py-14 bg-white" 
+      style={{ fontFamily: "Inter, sans-serif" }} // 👈 ADDED FONT STYLE HERE
+    >
       <div className="max-w-7xl mx-auto px-0 sm:px-10 lg:px-20 flex flex-col items-center gap-10">
         {/* Header */}
         <div className="text-center">
