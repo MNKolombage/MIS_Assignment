@@ -152,31 +152,61 @@ export default function Notifications({ userRole = 'user' }) {
     return colorMap[type] || 'text-gray-600'
   }
 
+  // Group notifications by time
+  const groupNotificationsByTime = (notifications) => {
+    const now = new Date()
+    const groups = { today: [], yesterday: [], thisWeek: [], older: [] }
+
+    notifications.forEach(notif => {
+      // Parse timestamp - simplified logic
+      const timeText = notif.timestamp.toLowerCase()
+      if (timeText.includes('minute') || timeText.includes('hour') || timeText.includes('just now')) {
+        groups.today.push(notif)
+      } else if (timeText.includes('day ago') && parseInt(timeText) === 1) {
+        groups.yesterday.push(notif)
+      } else if (timeText.includes('day')) {
+        groups.thisWeek.push(notif)
+      } else {
+        groups.older.push(notif)
+      }
+    })
+
+    return groups
+  }
+
+  const notificationGroups = groupNotificationsByTime(filteredNotifications)
+
   return (
     <div className="relative" ref={dropdownRef}>
       {/* Bell Icon Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="relative p-2 rounded-full hover:bg-gray-100 transition-colors duration-200"
+        className="relative p-2 rounded-full hover:bg-gray-100 transition-all duration-300 hover:scale-105 active:scale-95"
         aria-label="Notifications"
       >
-        <Bell className="w-6 h-6 text-gray-700" />
+        <Bell className={`w-6 h-6 text-gray-700 transition-all duration-300 ${unreadCount > 0 ? 'animate-pulse' : ''}`} />
         
-        {/* Badge Count */}
+        {/* Badge Count with pulse animation */}
         {unreadCount > 0 && (
-          <span
-            className="absolute top-1 right-1 flex items-center justify-center w-5 h-5 text-xs font-semibold text-white rounded-full shadow-lg"
-            style={{ backgroundColor: ACCENT_BUTTON }}
-          >
-            {unreadCount > 9 ? '9+' : unreadCount}
-          </span>
+          <>
+            <span
+              className="absolute top-1 right-1 flex items-center justify-center w-5 h-5 text-xs font-semibold text-white rounded-full shadow-lg animate-bounce z-10"
+              style={{ backgroundColor: ACCENT_BUTTON }}
+            >
+              {unreadCount > 9 ? '9+' : unreadCount}
+            </span>
+            <span
+              className="absolute top-1 right-1 w-5 h-5 rounded-full animate-ping opacity-75"
+              style={{ backgroundColor: ACCENT_BUTTON }}
+            />
+          </>
         )}
       </button>
 
-      {/* Dropdown Panel */}
+      {/* Dropdown Panel with animation */}
       {isOpen && (
         <div
-          className="absolute right-0 mt-2 w-96 max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-2xl border border-gray-200 z-50 overflow-hidden"
+          className="absolute right-0 mt-2 w-96 max-w-[calc(100vw-2rem)] bg-white rounded-lg shadow-2xl border border-gray-200 z-50 overflow-hidden transform transition-all duration-300 ease-out animate-in slide-in-from-top-2 fade-in"
           style={{ top: '100%' }}
         >
           {/* Header */}
@@ -218,13 +248,13 @@ export default function Notifications({ userRole = 'user' }) {
                 const iconColor = getIconColor(notification.type)
 
                 return (
-                  <div
-                    key={notification.id}
-                    onClick={() => markAsRead(notification.id)}
-                    className={`px-6 py-4 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition-colors ${
-                      !notification.read ? 'bg-blue-50/50' : 'bg-white'
-                    }`}
-                  >
+                                        <div
+                        key={notification.id}
+                        onClick={() => markAsRead(notification.id)}
+                        className={`px-6 py-4 border-b border-gray-100 cursor-pointer hover:bg-gray-50 hover:shadow-sm transition-all duration-200 transform hover:scale-[1.01] ${
+                          !notification.read ? 'bg-blue-50/50' : 'bg-white'
+                        }`}
+                      >
                     <div className="flex items-start gap-3">
                       {/* Icon */}
                       <div
@@ -280,7 +310,7 @@ export default function Notifications({ userRole = 'user' }) {
       {/* Backdrop (optional - darkens background) */}
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/20 z-40"
+          className="fixed inset-0 bg-black/20 z-40 transition-opacity duration-200 backdrop-blur-[2px]"
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -288,14 +318,14 @@ export default function Notifications({ userRole = 'user' }) {
       {/* View All Notifications Modal */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-          {/* Modal Backdrop */}
+          {/* Modal Backdrop with blur */}
           <div
-            className="absolute inset-0 bg-black/60"
+            className="absolute inset-0 bg-black/40 backdrop-blur-sm transition-opacity duration-300"
             onClick={() => setIsModalOpen(false)}
           />
           
-          {/* Modal Content */}
-          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col z-50">
+          {/* Modal Content with animation */}
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col z-50 transform transition-all duration-300 scale-100 animate-in fade-in zoom-in-95">
             {/* Modal Header */}
             <div
               className="px-6 py-5 border-b border-gray-200 flex items-center justify-between rounded-t-2xl"
@@ -317,8 +347,24 @@ export default function Notifications({ userRole = 'user' }) {
               </button>
             </div>
 
-            {/* Modal Body - Notifications List */}
-            <div className="flex-1 overflow-y-auto p-6">
+            {/* Modal Body - Notifications List with custom scrollbar */}
+            <div className="flex-1 overflow-y-auto p-6 custom-scrollbar">
+              <style jsx>{`
+                .custom-scrollbar::-webkit-scrollbar {
+                  width: 8px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                  background: #f1f1f1;
+                  border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                  background: #6B3A3A;
+                  border-radius: 10px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                  background: #5F0606;
+                }
+              `}</style>
               {filteredNotifications.length === 0 ? (
                 <div className="text-center py-12">
                   <Bell className="w-16 h-16 text-gray-300 mx-auto mb-4" />
@@ -334,7 +380,7 @@ export default function Notifications({ userRole = 'user' }) {
                       <div
                         key={notification.id}
                         onClick={() => markAsRead(notification.id)}
-                        className={`p-4 border border-gray-200 rounded-lg cursor-pointer hover:shadow-md transition-all ${
+                        className={`p-4 border border-gray-200 rounded-lg cursor-pointer hover:shadow-lg hover:border-gray-300 transition-all duration-200 transform hover:scale-[1.02] ${
                           !notification.read ? 'bg-blue-50/50 border-blue-200' : 'bg-white'
                         }`}
                       >
