@@ -54,11 +54,11 @@ export default function Chatbot() {
       <div className="flex items-end">
         {open && (
           <div className="w-80 max-w-xs bg-white border rounded-lg shadow-lg flex flex-col overflow-hidden">
-            <div className="px-4 py-3 bg-indigo-600 text-white font-semibold">Nisala Assistant</div>
+            <div className="px-4 py-3 bg-rose-700 text-white font-semibold">Nisala Assistant</div>
             <div ref={listRef} className="p-3 space-y-2 h-56 overflow-y-auto bg-gray-50">
               {messages.map((m) => (
                 <div key={m.id} className={`flex ${m.from === 'user' ? 'justify-end' : 'justify-start'}`}>
-                  <div className={`${m.from === 'user' ? 'bg-indigo-600 text-white' : 'bg-white text-gray-800 border'} px-3 py-2 rounded-lg max-w-full`}>{m.text}</div>
+                  <div className={`${m.from === 'user' ? 'bg-rose-700 text-white' : 'bg-white text-gray-800 border'} px-3 py-2 rounded-lg max-w-full`}>{m.text}</div>
                 </div>
               ))}
               {typing && (
@@ -76,7 +76,7 @@ export default function Chatbot() {
                   placeholder="Write a message..."
                   aria-label="Chat message"
                 />
-                <button onClick={sendMessage} className="ml-2 bg-indigo-600 text-white px-3 py-1 rounded-md">Send</button>
+                <button onClick={sendMessage} className="ml-2 bg-rose-700 text-white px-3 py-1 rounded-md">Send</button>
               </div>
             </div>
           </div>
@@ -85,7 +85,7 @@ export default function Chatbot() {
         <button
           onClick={() => setOpen((o) => !o)}
           aria-label="Open chat"
-          className="ml-3 bg-indigo-600 hover:bg-indigo-700 text-white p-3 rounded-full shadow-lg"
+          className="ml-3 bg-rose-700 hover:bg-rose-800 text-white p-3 rounded-full shadow-lg"
         >
           {open ? '✕' : '💬'}
         </button>
