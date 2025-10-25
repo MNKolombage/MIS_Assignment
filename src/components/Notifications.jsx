@@ -95,6 +95,7 @@ const BG_COLOR = '#FFFBF2'
 
 export default function Notifications({ userRole = 'user' }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const [notifications, setNotifications] = useState(demoNotifications)
   const dropdownRef = useRef(null)
 
@@ -263,7 +264,11 @@ export default function Notifications({ userRole = 'user' }) {
           {/* Footer */}
           <div className="px-6 py-3 border-t border-gray-200 bg-gray-50">
             <button
-              className="w-full text-center text-sm font-medium"
+              onClick={() => {
+                setIsOpen(false)
+                setIsModalOpen(true)
+              }}
+              className="w-full text-center text-sm font-medium hover:opacity-80 transition-opacity"
               style={{ color: ACCENT_TEXT }}
             >
               View All Notifications
@@ -278,6 +283,118 @@ export default function Notifications({ userRole = 'user' }) {
           className="fixed inset-0 bg-black/20 z-40"
           onClick={() => setIsOpen(false)}
         />
+      )}
+
+      {/* View All Notifications Modal */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+          {/* Modal Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/60"
+            onClick={() => setIsModalOpen(false)}
+          />
+          
+          {/* Modal Content */}
+          <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-3xl max-h-[90vh] flex flex-col z-50">
+            {/* Modal Header */}
+            <div
+              className="px-6 py-5 border-b border-gray-200 flex items-center justify-between rounded-t-2xl"
+              style={{ backgroundColor: BG_COLOR }}
+            >
+              <div>
+                <h2 className="text-2xl font-bold" style={{ color: ACCENT_TEXT }}>
+                  All Notifications
+                </h2>
+                <p className="text-sm text-gray-600 mt-1">
+                  {filteredNotifications.length} total notification{filteredNotifications.length !== 1 ? 's' : ''}
+                </p>
+              </div>
+              <button
+                onClick={() => setIsModalOpen(false)}
+                className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+              >
+                <X className="w-6 h-6 text-gray-600" />
+              </button>
+            </div>
+
+            {/* Modal Body - Notifications List */}
+            <div className="flex-1 overflow-y-auto p-6">
+              {filteredNotifications.length === 0 ? (
+                <div className="text-center py-12">
+                  <Bell className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+                  <p className="text-gray-500 text-lg">No notifications yet</p>
+                </div>
+              ) : (
+                <div className="space-y-3">
+                  {filteredNotifications.map(notification => {
+                    const Icon = notification.icon
+                    const iconColor = getIconColor(notification.type)
+
+                    return (
+                      <div
+                        key={notification.id}
+                        onClick={() => markAsRead(notification.id)}
+                        className={`p-4 border border-gray-200 rounded-lg cursor-pointer hover:shadow-md transition-all ${
+                          !notification.read ? 'bg-blue-50/50 border-blue-200' : 'bg-white'
+                        }`}
+                      >
+                        <div className="flex items-start gap-4">
+                          {/* Icon */}
+                          <div
+                            className={`flex-shrink-0 w-12 h-12 rounded-full flex items-center justify-center ${iconColor} bg-gray-100`}
+                          >
+                            <Icon className="w-6 h-6" />
+                          </div>
+
+                          {/* Content */}
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-start justify-between gap-3 mb-2">
+                              <h4 className="font-semibold text-gray-900">
+                                {notification.title}
+                              </h4>
+                              {!notification.read && (
+                                <div
+                                  className="w-2.5 h-2.5 rounded-full flex-shrink-0 mt-1"
+                                  style={{ backgroundColor: ACCENT_BUTTON }}
+                                />
+                              )}
+                            </div>
+                            <p className="text-sm text-gray-700 mb-2">
+                              {notification.message}
+                            </p>
+                            <p className="text-xs text-gray-500 flex items-center gap-1">
+                              <Clock className="w-3 h-3" />
+                              {notification.timestamp}
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  })}
+                </div>
+              )}
+            </div>
+
+            {/* Modal Footer */}
+            {filteredNotifications.length > 0 && (
+              <div className="px-6 py-4 border-t border-gray-200 bg-gray-50 rounded-b-2xl flex items-center justify-between">
+                <button
+                  onClick={markAllAsRead}
+                  className="text-sm font-medium text-gray-700 hover:text-gray-900 transition-colors"
+                >
+                  Mark all as read
+                </button>
+                <button
+                  onClick={() => setIsModalOpen(false)}
+                  className="px-5 py-2 text-sm font-medium text-white rounded-lg hover:opacity-90 transition-opacity"
+                  style={{ backgroundColor: ACCENT_BUTTON }}
+                >
+                  Close
+                </button>
+              </div>
+            )}
+          </div>
+        </div>
       )}
     </div>
   )
