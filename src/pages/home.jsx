@@ -4,6 +4,7 @@ import PlanYourTrip from '../components/sections/Plan_Your_Trip'
 import Gallery from '../components/sections/Gallery'
 import ContactSection from '../components/sections/Contact'
 import BookYourStay from '../components/sections/Book_Your_Stay'
+import Review from '../components/sections/review'
 
 export default function Home() {
     return (
@@ -12,6 +13,7 @@ export default function Home() {
             <OurRestaurant />
             <PlanYourTrip />
             <Gallery />
+            <Review/>
             <ContactSection />
             <BookYourStay />
         </>
