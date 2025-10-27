@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { User, DollarSign, Calendar, Home, Star, ArrowUp, ArrowDown } from "lucide-react"
+import { motion } from "framer-motion"
 
 export default function AnalyticsDashboard() {
   const [timePeriod, setTimePeriod] = useState("month")
@@ -92,7 +93,7 @@ export default function AnalyticsDashboard() {
               key={period}
               onClick={() => setTimePeriod(period)}
               className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-                timePeriod === period ? "bg-blue-600 text-white" : "bg-white text-gray-700 hover:bg-gray-100"
+                timePeriod === period ? "bg-red-800 text-white" : "bg-white text-gray-700 hover:bg-gray-100"
               }`}
             >
               {period.charAt(0).toUpperCase() + period.slice(1)}
@@ -136,45 +137,64 @@ export default function AnalyticsDashboard() {
         ))}
       </div>
 
-      {/* Charts Section */}
+      {/* Charts Section with Motion */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Bookings Chart */}
         <div className="bg-white shadow-md rounded-xl p-6">
           <h3 className="text-xl font-semibold text-gray-700 mb-6">Monthly Bookings</h3>
           <div className="flex items-end justify-around h-64 gap-2">
             {barData.map((item, idx) => (
-              <div key={idx} className="flex flex-col items-center gap-2">
+              <motion.div
+                key={idx}
+                className="flex flex-col items-center gap-2"
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 200 }}
+              >
                 <div className="relative h-48 w-12 bg-gray-100 rounded-t-lg overflow-hidden">
-                  <div
-                    className="absolute bottom-0 w-full bg-blue-600 transition-all"
-                    style={{ height: `${(item.bookings / maxBookings) * 100}%` }}
+                  <motion.div
+                    className="absolute bottom-0 w-full bg-gradient-to-t from-red-800 to-red-100 rounded-t-lg"
+                    initial={{ height: 0 }}
+                    animate={{ height: `${(item.bookings / maxBookings) * 100}%` }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-600">{item.month}</span>
                 <span className="text-xs text-gray-500">{item.bookings}</span>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>
 
+        {/* Revenue Chart */}
         <div className="bg-white shadow-md rounded-xl p-6">
           <h3 className="text-xl font-semibold text-gray-700 mb-6">Revenue Trend</h3>
           <div className="flex items-end justify-around h-64 gap-2">
             {revenueData.map((item, idx) => (
-              <div key={idx} className="flex flex-col items-center gap-2">
+              <motion.div
+                key={idx}
+                className="flex flex-col items-center gap-2"
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 200 }}
+              >
                 <div className="relative h-48 w-12 bg-gray-100 rounded-t-lg overflow-hidden">
-                  <div
-                    className="absolute bottom-0 w-full bg-green-600 transition-all"
-                    style={{ height: `${(item.revenue / maxRevenue) * 100}%` }}
+                  <motion.div
+                    className="absolute bottom-0 w-full bg-gradient-to-t from-green-800 to-green-200 rounded-t-lg"
+                    initial={{ height: 0 }}
+                    animate={{ height: `${(item.revenue / maxRevenue) * 100}%` }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
                   />
                 </div>
                 <span className="text-sm font-medium text-gray-600">{item.month}</span>
-                <span className="text-xs text-gray-500">${(item.revenue / 1000).toFixed(0)}k</span>
-              </div>
+                <span className="text-xs text-gray-500">
+                  ${(item.revenue / 1000).toFixed(0)}k
+                </span>
+              </motion.div>
             ))}
           </div>
         </div>
       </div>
 
+      {/* Top Villas Table */}
       <div className="bg-white shadow-md rounded-xl p-6">
         <h3 className="text-xl font-semibold text-gray-700 mb-6">Top Performing Villas</h3>
         <div className="overflow-x-auto">
@@ -206,12 +226,13 @@ export default function AnalyticsDashboard() {
         </div>
       </div>
 
+      {/* Upcoming & Room Distribution */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <div className="bg-white shadow-md rounded-xl p-6">
           <h3 className="text-xl font-semibold text-gray-700 mb-6">Upcoming Bookings (Next 7 Days)</h3>
           <div className="space-y-4">
             {upcomingBookings.map((booking, idx) => (
-              <div key={idx} className="flex items-start gap-4 p-4 bg-blue-50 rounded-lg border border-blue-100">
+              <div key={idx} className="flex items-start gap-4 p-4 bg-red-50 rounded-lg border border-red-100">
                 <Calendar className="w-5 h-5 text-blue-600 mt-1 flex-shrink-0" />
                 <div className="flex-1">
                   <p className="font-semibold text-gray-900">{booking.guest}</p>

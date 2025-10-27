@@ -75,7 +75,7 @@ export default function NotificationsPanel() {
         {notifications.length > 0 && (
           <button
             onClick={handleClear}
-            className="text-sm bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-md transition"
+            className="text-sm bg-red-800 hover:bg-red-700 text-white px-4 py-2 rounded-md transition"
           >
             Clear All
           </button>
