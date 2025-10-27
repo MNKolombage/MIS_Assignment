@@ -4,19 +4,19 @@ import Footer from '../components/Footer'
 import Chatbot from '../components/Chatbot'
 
 export const metadata = {
-	title: 'Nisala Villa',
-	description: 'Welcome to Nisala Villa',
+  title: 'Nisala Villa',
+  description: 'Welcome to Nisala Villa',
 }
 
 export default function RootLayout({ children }) {
-	return (
-		<html lang="en">
-			<body>
-				<Header />
-				<main>{children}</main>
-				<Chatbot />
-				<Footer />
-			</body>
-		</html>
-	)
+  return (
+    <html lang="en" className="scroll-smooth">
+      <body>
+        <Header />
+        <main className="pt-16">{children}</main>
+        <Chatbot />
+        <Footer />
+      </body>
+    </html>
+  )
 }
