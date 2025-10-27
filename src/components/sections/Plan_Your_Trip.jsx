@@ -78,9 +78,9 @@ export default function PlanYourTrip() {
     }, [slides.length])
 
     return (
-        <section className="py-12 bg-gray-50">
+        <section id="plan-your-trip" className="py-12 bg-gray-50">  
             <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <h3 className="text-4xl font-bold mb-3 text-center uppercase">PLAN YOUR TRIP</h3>
+                <h3 className="text-4xl font-bold mb-3 text-center">Plan <span style={{ color: '#6B3A3A' }}>Your Trip</span></h3>
                 <p className="text-gray-600 text-center mb-8">Embark on a seamless adventure planning experience with NISALA VILLA. We understand that every traveler is unique, and so is their journey. Let us be your guide as you curate the perfect itinerary, unlocking a world of possibilities and unforgettable memories.</p>
             </div>
             <div className="relative w-full mt-8">

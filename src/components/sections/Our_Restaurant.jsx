@@ -84,6 +84,7 @@ export default function OurRestaurant() {
 
     return (
         <section
+            id="restaurant"
             className="py-12 md:py-20"
             style={{ backgroundColor: BG_COLOR, fontFamily: "Inter, sans-serif" }}
         >
