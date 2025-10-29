@@ -54,7 +54,7 @@ export default function PaymentForm({ bookingDetails }) {
 			}}
 		>
 			{/* Header */}
-			<header className="text-center mb-8">
+			<header className="text-center mb-10 mt-20">
 				<h1 className="text-5xl font-bold text-white" style={{ textShadow: "1px 1px 2px black" }}>
 					How would you like to pay?
 				</h1>

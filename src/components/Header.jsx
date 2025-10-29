@@ -10,19 +10,16 @@ export default function Header() {
           <a className="text-gray-700 hover:text-gray-900" href="#">Home</a>
           <a className="text-gray-700 hover:text-gray-900" href="#about">About</a>
           <a className="text-gray-700 hover:text-gray-900" href="#contact">Contact</a>
+          
+          {/* Notification Bell */}
+          <Notifications userRole="user" />
+          
+          {/* Updated Book Your Stay Button */}
           <Link href="/book-your-stay">
-            <button className="mt-4 bg-red-800 hover:bg-red-900 text-white font-semibold py-3 px-6 rounded-md shadow-md">
+            <button className="bg-red-800 hover:bg-red-900 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-110 hover:shadow-lg">
               Book Your Stay
             </button>
           </Link>
-          {/* Notification Bell */}
-          <Notifications userRole="user" />
-          <a 
-            href="#book-your-stay" 
-            className="bg-red-800 hover:bg-red-900 text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 hover:scale-110 hover:shadow-lg"
-          >
-            Book Your Stay
-          </a>
         </nav>
       </div>
     </header>

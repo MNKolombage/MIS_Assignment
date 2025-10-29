@@ -109,7 +109,7 @@ export default function BookYourStay() {
 			}}
 		>
 			{/* Header */}
-			<header className="text-center mb-8">
+			<header className="text-center mb-10 mt-20">
 				<h1 className="text-5xl font-bold text-white" style={{ textShadow: "1px 1px 2px black" }}>
 					We assist you to choose the best.
 				</h1>
