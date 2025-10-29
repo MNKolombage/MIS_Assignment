@@ -120,7 +120,8 @@ const App = () => {
 
     return (
         // Main container
-        <section 
+        <section
+            id ="gallery"
             style={{ fontFamily: 'Inter, sans-serif' }}
             className="w-full py-10 relative bg-[#FFFBF2] flex flex-col justify-center items-center gap-8 overflow-hidden min-h-[600px] 
                         // Custom decorative background elements (simplified for safety)
