@@ -7,8 +7,9 @@ export default function Header() {
         <div className="text-xl font-bold">Nisala Villa</div>
         <nav className="space-x-4 flex items-center gap-4">
           <a className="text-gray-700 hover:text-gray-900" href="#home">Home</a>
-          <a className="text-gray-700 hover:text-gray-900" href="#restaurant">Our Restaurant</a>
+          <a className="text-gray-700 hover:text-gray-900" href="#restaurant">Dining at Nisala</a>
           <a className="text-gray-700 hover:text-gray-900" href="#plan-your-trip">Plan Your Trip</a>
+          <a className="text-gray-700 hover:text-gray-900" href="#gallery">Gallery</a>
           <a className="text-gray-700 hover:text-gray-900" href="#contact">Contact</a>
           {/* Notification Bell */}
           <Notifications userRole="user" />
